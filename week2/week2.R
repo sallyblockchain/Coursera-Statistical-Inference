@@ -36,5 +36,33 @@ ppois(3, lambda = 2.5 * 4)
 # p = 0.01, 500 times, prob of <=2 successes
 pbinom(2, size = 500, prob = 0.01) #  0.1233858
 ppois(2, lambda = 500 * 0.01) # 0.124652
-
-
+## Law of large numbers
+n <- 10000
+means <- cumsum(rnorm(n)) / (1 : n)
+plot(1 : n, means, type = "l", lwd = 2, 
+     frame = F, ylab = "cumulative means", xlab = "sample size")
+abline(h = 0)
+## Confidence interval
+library(UsingR)
+data(father.son)
+x <- father.son$sheight
+(mean(x) + c(-1, 1)*qnorm(.975)*sd(x) / sqrt(length(x))) / 12
+# Poisson interval
+x <- 5
+t <- 94.32
+lambda <- x / t
+round(lambda + c(-1, 1)*qnorm(0.975)*sqrt(lambda / t), 3)
+poisson.test(x, T = 94.32)$conf
+exp(confint(glm(x ~ 1 + offset(log(t)), family = poisson(link = log))))
+## T interval
+# sleep data
+data(sleep)
+head(sleep)
+g1 <- sleep$extra[1:10]
+g2 <- sleep$extra[11:20]
+difference <- g2 - g1
+mn <- mean(difference)
+s <- sd(difference)
+n <- 10
+mn + c(-1, 1) * qt(0.975, n - 1)*s / sqrt(n)
+t.test(difference)$conf.int
