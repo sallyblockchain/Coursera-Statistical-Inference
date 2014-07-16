@@ -13,6 +13,7 @@ pnorm(-abs(z)) # 0.1586553
 mu <- 1100
 s <- 75
 mu + qnorm(0.95)*s # 1223.364
+qnorm(0.95, mean = 1100, sd = 75) # 1223.364
 # Problem 5.
 mu <- 1100
 s <- 75
@@ -28,6 +29,7 @@ z <- 1
 # Problem 8.
 # The law of large numbers
 # sample mean(approx.)=mu=0.5
+mean(rnorm(1e+07, mean = 0.5, sd = sqrt(1/12))) # 0.4999649
 # Problem 9.
 sqrt(1/12)/sqrt(100) # 0.02886751
 # Problem 10.
